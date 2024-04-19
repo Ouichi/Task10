@@ -1,6 +1,8 @@
 package com.example.userservice;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -23,4 +25,8 @@ public interface UsersMapper {
 
     @Select("SELECT * FROM users WHERE id = #{id}")
     Optional<User>findById(int id);
+
+    @Insert("INSERT INTO users (name, phone) VALUES (#{name}, #{phone})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void insert(User user);
 }

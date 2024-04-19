@@ -2,19 +2,25 @@ package com.example.userservice;
 
 public class User{
 
-    private int id;
+    private Integer id;
 
     private String name;
 
     private String phone;
 
-    public User(int id,String name,String phone){
+    public User(Integer id,String name,String phone){
         this.id=id;
         this.name=name;
         this.phone=phone;
     }
 
-    public int getId(){
+    public User(String name,String phone){
+        this.id=null;
+        this.name=name;
+        this.phone=phone;
+    }
+
+    public Integer getId(){
         return id;
     }
 

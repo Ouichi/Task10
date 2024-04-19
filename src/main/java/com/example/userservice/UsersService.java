@@ -31,4 +31,12 @@ public class UsersService {
     public User findUser(int id){
         return usersMapper.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
+
+
+    public User userInsert(String name,String phone){
+        User user = new User(name,phone);
+        usersMapper.insert(user);
+        return user;
+    }
+    
 }

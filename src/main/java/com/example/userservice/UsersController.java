@@ -1,10 +1,7 @@
 package com.example.userservice;
 
 import jakarta.websocket.server.PathParam;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,4 +23,11 @@ public class UsersController {
     public User findUser(@PathVariable("id")int id){
         return usersService.findUser(id);
     }
+
+    @PostMapping("/users")
+    public User userInsert(@RequestBody UsersRequest request){
+        User user = usersService.userInsert(request.getName(), request.getPhone());
+        return user;
+    }
+
 }
