@@ -1,4 +1,6 @@
-package com.example.userservice;
+package com.example.userservice.controller.request;
+
+import org.springframework.lang.NonNull;
 
 public class UsersRequest {
 

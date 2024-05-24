@@ -1,9 +1,7 @@
-package com.example.userservice;
+package com.example.userservice.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import com.example.userservice.entity.User;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +24,22 @@ public interface UsersMapper {
     @Select("SELECT * FROM users WHERE id = #{id}")
     Optional<User>findById(int id);
 
+    @Select("SELECT * FROM users WHERE phone = #{phone}")
+    Optional<User>findByPhone(String phone);
+
     @Insert("INSERT INTO users (name, phone) VALUES (#{name}, #{phone})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(User user);
+
+    @Update("UPDATE users SET name = #{name},phone = #{phone} WHERE id =#{id}")
+    void update(User user);
+
+    @Update("UPDATE users SET name = #{name} WHERE id =#{id}")
+    void updateName(User user);
+
+    @Update("UPDATE users SET phone = #{phone} WHERE id =#{id}")
+    void updatePhone(User user);
+
+    @Delete("DELETE FROM users WHERE id = #{id}")
+    void deleteById(int id);
 }

@@ -23,4 +23,5 @@ public class UserExceptionHandler {
                 "path", request.getRequestURI());
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+    
 }
