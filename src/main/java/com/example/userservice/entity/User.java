@@ -15,7 +15,6 @@ public class User{
     }
 
     public User(String name,String phone){
-        this.id=null;
         this.name=name;
         this.phone=phone;
     }

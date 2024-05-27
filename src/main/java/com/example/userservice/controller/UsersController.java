@@ -37,36 +37,21 @@ public class UsersController {
     public ResponseEntity<UserResponse> insert(@RequestBody UsersRequest userRequest, UriComponentsBuilder uriBuilder) {
         User user = usersService.userInsert(userRequest.getName(), userRequest.getPhone());
         UserResponse body = new UserResponse(usersService.getBody());
-            if(user == null){
-                 return ResponseEntity.status(usersService.getStatus()).body(body);
-            }
-            else{
-                URI location = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
-                return ResponseEntity.created(location).body(body);
-            }
+        URI location = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
+        return ResponseEntity.created(location).body(body);
     }
 
     @PatchMapping("/users/{id}")
     public ResponseEntity<UserResponse> patchUser(@PathVariable("id")int id,@RequestBody UsersRequest userRequest){
         User user = usersService.userPatch(id,userRequest.getName(), userRequest.getPhone());
         UserResponse body = new UserResponse(usersService.getBody());
-        if(user == null){
-            return ResponseEntity.status(usersService.getStatus()).body(body);
-        }
-        else{
-            return ResponseEntity.ok().body(body);
-        }
+        return ResponseEntity.ok().body(body);
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<UserResponse> delete(@PathVariable("id")int id){
         User user = usersService.userDelete(id);
         UserResponse body = new UserResponse(usersService.getBody());
-        if(user == null){
-            return ResponseEntity.status(usersService.getStatus()).body(body);
-        }
-        else{
-            return ResponseEntity.status(usersService.getStatus()).body(body);
-        }
+        return ResponseEntity.noContent().build();
     }
 }

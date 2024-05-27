@@ -23,5 +23,11 @@ public class UserExceptionHandler {
                 "path", request.getRequestURI());
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
-    
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Map<String, String>> handleBadRequestException(
+            BadRequestException e, HttpServletRequest request) {
+        Map<String, String> body = Map.of(
+                "message", e.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
 }

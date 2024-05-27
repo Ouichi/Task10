@@ -1,5 +1,6 @@
 package com.example.userservice.service;
 
+import com.example.userservice.BadRequestException;
 import com.example.userservice.controller.response.UserResponse;
 import com.example.userservice.entity.User;
 import com.example.userservice.UserNotFoundException;
@@ -49,25 +50,18 @@ public class UsersService {
 
     public User userInsert(String name,String phone) {
         Optional<User> userOptional=usersMapper.findByPhone(phone);
+
         if ((name == null || name.isEmpty()) && (phone == null  || phone.isEmpty())) {
-            this.body = "name and phone cannot be null";
-            this.status = HttpStatus.BAD_REQUEST;
-            return null;
+            throw new  BadRequestException("name and phone cannot be null");
         }
         else if (name == null || name.isEmpty()) {
-            this.body = "name cannot be null";
-            this.status = HttpStatus.BAD_REQUEST;
-            return null;
+            throw new  BadRequestException("name cannot be null");
         }
         else if (phone == null || phone.isEmpty()) {
-            this.body = "phone cannot be null";
-            this.status = HttpStatus.BAD_REQUEST;
-            return null;
+            throw new  BadRequestException("phone cannot be null");
         }
         else if (userOptional.isPresent()) {
-            this.body = "The phone is being used";
-            this.status = HttpStatus.BAD_REQUEST;
-            return null;
+            throw new  BadRequestException("The phone is being used");
         }
         else {
             this.user = new User(name, phone);
@@ -82,9 +76,7 @@ public class UsersService {
 
         if (updateUser.isPresent()) {
             if ((name == null || phone == null ) || (name.isEmpty() && phone.isEmpty())) {
-                this.body = "name and phone cannot be null";
-                this.status = HttpStatus.BAD_REQUEST;
-                return null;
+                throw new  BadRequestException("name and phone cannot be null");
             }
             else if (name.isEmpty()) {
                 this.user = new User(id,name, phone);
@@ -114,14 +106,10 @@ public class UsersService {
         Optional<User> deleteUser = usersMapper.findById(id);
         if(deleteUser.isPresent()) {
             usersMapper.deleteById(id);
-            this.body="user deleted";
-            this.status =HttpStatus.NO_CONTENT;
             return user;
         }
         else{
-            this.body="user not found";
-            this.status = HttpStatus.NOT_FOUND;
-            return null;
+            throw new UserNotFoundException("User not found");
         }
     }
 
@@ -132,5 +120,4 @@ public class UsersService {
     public HttpStatus getStatus(){
         return  status;
     }
-
 }
