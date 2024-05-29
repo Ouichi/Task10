@@ -1,12 +1,10 @@
 package com.example.userservice.service;
 
 import com.example.userservice.BadRequestException;
-import com.example.userservice.controller.response.UserResponse;
+import com.example.userservice.ConfirmFormat;
 import com.example.userservice.entity.User;
 import com.example.userservice.UserNotFoundException;
 import com.example.userservice.mapper.UsersMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +22,6 @@ public class UsersService {
     public String body;
 
     public User user;
-
-    public String phone;
-
-    public HttpStatus status;
 
     public List<User> findByName(String nameStartsWith, String nameEndsWith){
         if (nameStartsWith != null && nameEndsWith != null) {
@@ -49,16 +43,16 @@ public class UsersService {
     }
 
     public User userInsert(String name,String phone) {
-        Optional<User> userOptional=usersMapper.findByPhone(phone);
+        Optional<User> userOptional=usersMapper.findByPhone(ConfirmFormat.formatPhone(phone));
 
-        if ((name == null || name.isEmpty()) && (phone == null  || phone.isEmpty())) {
-            throw new  BadRequestException("name and phone cannot be null");
+        if (name.isEmpty() && phone.isEmpty()) {
+            throw new  BadRequestException("name and phone cannot be blank");
         }
-        else if (name == null || name.isEmpty()) {
-            throw new  BadRequestException("name cannot be null");
+        else if (name.isEmpty()) {
+            throw new  BadRequestException("name cannot be blank");
         }
-        else if (phone == null || phone.isEmpty()) {
-            throw new  BadRequestException("phone cannot be null");
+        else if (phone.isEmpty()) {
+            throw new  BadRequestException("phone cannot be blank");
         }
         else if (userOptional.isPresent()) {
             throw new  BadRequestException("The phone is being used");
@@ -75,7 +69,7 @@ public class UsersService {
         Optional<User> updateUser = usersMapper.findById(id);
 
         if (updateUser.isPresent()) {
-            if ((name == null || phone == null ) || (name.isEmpty() && phone.isEmpty())) {
+            if (name.isEmpty() && phone.isEmpty()) {
                 throw new  BadRequestException("name and phone cannot be null");
             }
             else if (name.isEmpty()) {
@@ -115,9 +109,5 @@ public class UsersService {
 
     public String getBody(){
         return body;
-    }
-
-    public HttpStatus getStatus(){
-        return  status;
     }
 }

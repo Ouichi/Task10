@@ -1,18 +1,15 @@
 package com.example.userservice.controller;
 
-import com.example.userservice.UserNotFoundException;
 import com.example.userservice.entity.User;
 import com.example.userservice.controller.response.UserResponse;
 import com.example.userservice.controller.request.UsersRequest;
 import com.example.userservice.service.UsersService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class UsersController {

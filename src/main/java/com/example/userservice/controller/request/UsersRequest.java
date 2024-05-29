@@ -1,6 +1,6 @@
 package com.example.userservice.controller.request;
 
-import org.springframework.lang.NonNull;
+import com.example.userservice.ConfirmFormat;
 
 public class UsersRequest {
 
@@ -9,8 +9,8 @@ public class UsersRequest {
     private String phone;
 
     public UsersRequest(String name,String phone){
-        this.name=name;
-        this.phone=phone;
+        this.name= ConfirmFormat.formatName(name);
+        this.phone=ConfirmFormat.formatPhone(phone);
     }
 
     public String getName(){

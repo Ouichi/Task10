@@ -1,5 +1,7 @@
 package com.example.userservice.entity;
 
+import com.example.userservice.ConfirmFormat;
+
 public class User{
 
     private Integer id;
@@ -10,24 +12,16 @@ public class User{
 
     public User(Integer id,String name,String phone){
         this.id=id;
-        this.name=name;
-        this.phone=phone;
+        this.name=ConfirmFormat.formatName(name);
+        this.phone=ConfirmFormat.formatPhone(phone);
     }
 
     public User(String name,String phone){
-        this.name=name;
-        this.phone=phone;
+        this.name=ConfirmFormat.formatName(name);
+        this.phone=ConfirmFormat.formatPhone(phone);
     }
 
     public Integer getId(){
         return id;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public String getPhone(){
-        return phone;
     }
 }
