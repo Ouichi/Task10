@@ -32,7 +32,7 @@ public class UsersController {
 
     @PostMapping("/users")
     public ResponseEntity<UserResponse> insert(@RequestBody UsersRequest userRequest, UriComponentsBuilder uriBuilder) {
-        User user = usersService.userInsert(userRequest.getName(), userRequest.getPhone());
+        User user = usersService.insertUser(userRequest.getName(), userRequest.getPhone());
         UserResponse body = new UserResponse(usersService.getBody());
         URI location = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(location).body(body);
@@ -40,14 +40,14 @@ public class UsersController {
 
     @PatchMapping("/users/{id}")
     public ResponseEntity<UserResponse> patchUser(@PathVariable("id")int id,@RequestBody UsersRequest userRequest){
-        User user = usersService.userPatch(id,userRequest.getName(), userRequest.getPhone());
+        User user = usersService.patchUser(id,userRequest.getName(), userRequest.getPhone());
         UserResponse body = new UserResponse(usersService.getBody());
         return ResponseEntity.ok().body(body);
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<UserResponse> delete(@PathVariable("id")int id){
-        User user = usersService.userDelete(id);
+        User user = usersService.deleteUser(id);
         UserResponse body = new UserResponse(usersService.getBody());
         return ResponseEntity.noContent().build();
     }

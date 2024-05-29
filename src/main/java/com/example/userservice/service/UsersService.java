@@ -42,7 +42,7 @@ public class UsersService {
         return usersMapper.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
-    public User userInsert(String name,String phone) {
+    public User insertUser(String name, String phone) {
         Optional<User> userOptional=usersMapper.findByPhone(ConfirmFormat.formatPhone(phone));
 
         if (name.isEmpty() && phone.isEmpty()) {
@@ -65,7 +65,7 @@ public class UsersService {
         }
     }
 
-    public User userPatch(int id,String name,String phone) {
+    public User patchUser(int id, String name, String phone) {
         Optional<User> updateUser = usersMapper.findById(id);
 
         if (updateUser.isPresent()) {
@@ -96,7 +96,7 @@ public class UsersService {
         }
     }
 
-    public User userDelete(int id){
+    public User deleteUser(int id){
         Optional<User> deleteUser = usersMapper.findById(id);
         if(deleteUser.isPresent()) {
             usersMapper.deleteById(id);
