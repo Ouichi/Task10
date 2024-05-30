@@ -16,17 +16,17 @@ public class UsersController {
 
     private UsersService usersService;
 
-    public UsersController(UsersService usersService){
+    public UsersController(UsersService usersService) {
         this.usersService = usersService;
     }
 
     @GetMapping("/users")
-    public List<User> findByName(@RequestParam(required = false)String nameStartsWith, @RequestParam(required = false)String nameEndsWith){
-        return usersService.findByName(nameStartsWith,nameEndsWith);
+    public List<User> findByName(@RequestParam(required = false) String nameStartsWith, @RequestParam(required = false) String nameEndsWith) {
+        return usersService.findByName(nameStartsWith, nameEndsWith);
     }
 
     @GetMapping("/users/{id}")
-    public User findUser(@PathVariable("id")int id){
+    public User findUser(@PathVariable("id") int id) {
         return usersService.findUser(id);
     }
 
@@ -39,14 +39,14 @@ public class UsersController {
     }
 
     @PatchMapping("/users/{id}")
-    public ResponseEntity<UserResponse> patchUser(@PathVariable("id")int id,@RequestBody UsersRequest userRequest){
-        User user = usersService.patchUser(id,userRequest.getName(), userRequest.getPhone());
+    public ResponseEntity<UserResponse> patchUser(@PathVariable("id") int id, @RequestBody UsersRequest userRequest) {
+        User user = usersService.patchUser(id, userRequest.getName(), userRequest.getPhone());
         UserResponse body = new UserResponse(usersService.getBody());
         return ResponseEntity.ok().body(body);
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<UserResponse> delete(@PathVariable("id")int id){
+    public ResponseEntity<UserResponse> delete(@PathVariable("id") int id) {
         User user = usersService.deleteUser(id);
         UserResponse body = new UserResponse(usersService.getBody());
         return ResponseEntity.noContent().build();

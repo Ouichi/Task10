@@ -13,7 +13,7 @@ import java.util.Map;
 public class UserExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Map<String,String>> handleUserNotFoundException(
+    public ResponseEntity<Map<String, String>> handleUserNotFoundException(
             UserNotFoundException e, HttpServletRequest request) {
         Map<String, String> body = Map.of(
                 "timestamp", ZonedDateTime.now().toString(),
@@ -23,6 +23,7 @@ public class UserExceptionHandler {
                 "path", request.getRequestURI());
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Map<String, String>> handleBadRequestException(
             BadRequestException e, HttpServletRequest request) {

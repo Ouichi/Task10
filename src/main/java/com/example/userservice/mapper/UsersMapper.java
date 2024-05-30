@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UsersMapper {
 
     @Select("SELECT * FROM users")
-    List<User>findAll();
+    List<User> findAll();
 
     @Select("SELECT * FROM users WHERE name LIKE CONCAT(#{prefix}, '%')")
     List<User> findByNameStartingWith(String prefix);
@@ -22,10 +22,10 @@ public interface UsersMapper {
     List<User> findByNameStartingAndEnding(String prefix, String suffix);
 
     @Select("SELECT * FROM users WHERE id = #{id}")
-    Optional<User>findById(int id);
+    Optional<User> findById(int id);
 
     @Select("SELECT * FROM users WHERE phone = #{phone}")
-    Optional<User>findByPhone(String phone);
+    Optional<User> findByPhone(String phone);
 
     @Insert("INSERT INTO users (name, phone) VALUES (#{name}, #{phone})")
     @Options(useGeneratedKeys = true, keyProperty = "id")

@@ -8,16 +8,16 @@ public class UsersRequest {
 
     private String phone;
 
-    public UsersRequest(String name,String phone){
-        this.name= ConfirmFormat.formatName(name);
-        this.phone=ConfirmFormat.formatPhone(phone);
+    public UsersRequest(String name, String phone) {
+        this.name = ConfirmFormat.formatName(name);
+        this.phone = ConfirmFormat.formatPhone(phone);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getPhone(){
+    public String getPhone() {
         return phone;
     }
 }
